@@ -1,8 +1,11 @@
+require('dotenv').config({ path: '../../config/.env'});
+
+
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 
-const usersRouter = require('./users/router.js');
+const usersRouter = require('../users/router.js');
 
 const server = express();
 
