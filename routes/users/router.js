@@ -14,7 +14,17 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
+    const user = req.body;
     
+    Users.add(user)
+    .then(saved => {
+      console.log('saved', saved);
+      
+      res.status(201).json(saved);
+    })
+    .catch((message, code, stack, name) => {
+      res.status(500).json({message, code, stack, name});
+    });
 })
 
 module.exports = router;
