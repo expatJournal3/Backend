@@ -1,7 +1,7 @@
 {
   "name": "Backend",
   "version": "1.0.0",
-  "description": "Making a RESTful Backend for Expath using Node.js",
+  "description": "RESTful Backend for Expath using Node.js",
   "main": "index.js",
   "scripts": {
     "test": "cross-env NODE_ENV=staging jest --watch",

@@ -13,18 +13,35 @@ router.get('/', (req, res) => {
         })
 });
 
-router.post('/', (req, res) => {
-    const user = req.body;
-    
-    Users.add(user)
-    .then(saved => {
-      console.log('saved', saved);
-      
-      res.status(201).json(saved);
+router.delete('/:id', validateUserId, (req, res) => {
+    const id = req.params.id;
+
+    Users.deleteUser(id)
+      .then(count => {
+        res.status(200).json(count);
+      })
+      .catch(error => {
+        console.log(error);
+        res.status(500).json({ error: "failed to remove the student" });
+      });
+});
+
+//custom middleware
+
+function validateUserId(req, res, next) {
+    const { id } = req.params;
+
+    Users.findById(id)
+    .then(user => {
+      console.log('user', user);
+      if( !Object.keys(user).length ){
+        res.status(400).json({ message: "invalid user id" });
+      }else next();
     })
-    .catch((message, code, stack, name) => {
-      res.status(500).json({message, code, stack, name});
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: `Couldn't retrieve a user with id of ${id}` });
     });
-})
+}
 
 module.exports = router;
