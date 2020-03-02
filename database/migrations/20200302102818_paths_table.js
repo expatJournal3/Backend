@@ -1,11 +1,17 @@
 
 exports.up = function(knex) {
     return knex.schema.createTable('paths', tbl => {
-        tbl.primary('user_id');
-  
-        tbl.string('paths', 255)
-            .unique()
+        tbl.increments();
+          
+        tbl.string('title', 255)
             .notNullable();
+  
+        tbl.string('body', 3000)
+            .notNullable();
+  
+        tbl.string('imgUrl', 255);
+  
+        tbl.string('timestamp', 255);
 
       // Foreign Keys
         tbl.integer('user_id')
