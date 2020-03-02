@@ -1,31 +1,31 @@
 # Backend
 For BACKEND devs
 
-# Introduction
+## Introduction
 What does your API do?
 
-# Overview
+## Overview
 Things that the developers should know about
 
-# Authentication
+## Authentication
 What is the preferred way of using the API?
 
-# Error Codes
+## Error Codes
 What errors and status codes can a user expect?
 
-# Rate limit
+## Rate limit
 Is there a limit to the number of requests an user can send?
 
 ## Register a user
 
 **Information required to register a user**
-POST /api/auth/register
+`POST` /api/auth/register
 Host: expath.herokuapp.com
 
 ```
 {
-    email: "",
-    password:""
+    email: "email@email.com",
+    password:"password"
 }
 ```
 
@@ -34,7 +34,7 @@ This is how your id and token would be returned:
 
 ```
 {
-    "message": "Welcome! Successful sign up with test@email.com",
+    "message": "Welcome! Successful sign up with email@email.com",
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjozLCJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwiaWF0IjoxNTgzMTI2MDI4LCJleHAiOjE1ODMyMTI0Mjh9.Vb6tXOBdxhsx32Thrtk6ntLHaIfWSMLP3zTZXBHzH0Y",
     "id": 3
 } 
@@ -42,14 +42,14 @@ This is how your id and token would be returned:
 
 ## Log in a user
 
-POST /api/auth/login
+`POST` /api/auth/login
 Host: expath.herokuapp.com
 
 Login with the email and password you used to register:
 
 ```
 {
-    email: "",
-    password: ""
+    email: "email@email.com",
+    password: "password"
 }
 ```
