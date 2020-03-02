@@ -12,15 +12,39 @@ What is the preferred way of using the API?
 
 ## Error Codes
 What errors and status codes can a user expect?
+* **Error Response:**
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** `{ error : "User doesn't exist" }`
+
+  OR
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** `{error: "Invalid credentials."}`
+
+  OR
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{message: "missing user data"}`
+
+  OR
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{message: "missing required email field"}`
+
+  OR
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{message: "missing required password field"}`
 
 ## Rate limit
-Is there a limit to the number of requests an user can send?
+There isn't any limit to the number of requests a user can send.
 
 ## Register a user
 
 **Information required to register a user**
-`POST` /api/auth/register
-Host: expath.herokuapp.com
+> `POST` /api/auth/register \
+`Host`: expath.herokuapp.com
 
 ```
 {
@@ -42,8 +66,8 @@ This is how your id and token would be returned:
 
 ## Log in a user
 
-`POST` /api/auth/login
-Host: expath.herokuapp.com
+>`POST` /api/auth/login \
+`Host`: expath.herokuapp.com
 
 Login with the email and password you used to register:
 
