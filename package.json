@@ -1,7 +1,7 @@
 {
   "name": "Backend",
   "version": "1.0.0",
-  "description": "RESTful Backend for Expath using Node.js",
+  "description": "RESTful NodeJS Backend for Expath",
   "main": "index.js",
   "scripts": {
     "test": "cross-env NODE_ENV=staging jest --watch",
@@ -13,7 +13,7 @@
     "url": "git+https://github.com/expatJournal3/Backend.git"
   },
   "keywords": [],
-  "author": "",
+  "authors": "Aaron Janovitch & Devanee Reid",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/expatJournal3/Backend/issues"
