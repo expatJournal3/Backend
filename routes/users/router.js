@@ -44,7 +44,7 @@ router.get('/:id/paths', validateUserId, (req, res) => {
     });
   });
   
-router.get('/:id/followers', validateUserId, (req, res) => {
+router.get('/:id/following', validateUserId, (req, res) => {
     const { id } = req.params;
     
     Users.findFollowers(id)
@@ -52,12 +52,12 @@ router.get('/:id/followers', validateUserId, (req, res) => {
         if (followers.length) {
           res.json(followers);
         } else {
-          res.status(404).json({ message: 'Could not find followers for given user' })
+          res.status(404).json({ message: 'Could not find users you\'re following' });
         }
       })
       .catch(err => {
         console.log(err);
-        res.status(500).json({ message: 'Failed to get the followers' });
+        res.status(500).json({ message: 'Failed to get the users you\'re following' });
       });
 });
 
@@ -78,18 +78,16 @@ router.post('/:id/paths', validateUserId, (req, res) => {
   });
 });
 
-router.post('/:id/followers', validateUserId, (req, res) => {
+router.post('/:id/following', validateUserId, (req, res) => {
   const follower = req.body;
   const { id } = req.params; 
   follower.user_id = Number(id);
-  console.log('follower', follower);
   
   Users.findById(id)
     .then(user => {
       console.log('user', user);
       Users.findByEmail(follower.email)
         .then(returnedFollower => {
-          console.log('follower found:', follower);
           Users.addFollower(follower)
           .then(added => {
 

@@ -118,8 +118,14 @@ Retrieve your personal user posts after logging in:
 > `DELETE` /:id/paths/:pathid \
 `HOST`: expath.herokuapp.com
 
+## GET **all** Posts 
+- Retrieve all posts from every user
+>`GET` /api/paths \
+`HOST`: expath.herokuapp.com
+
+
 ## Add a follower
-> `POST` /api/users/:id/followers \
+> `POST` /api/users/:id/following \
 `Host`: expath.herokuapp.com
 
 ```
@@ -129,5 +135,5 @@ Retrieve your personal user posts after logging in:
 ```
 
 ## GET User Followers
-> `GET` /api/users/:id/followers \
+> `GET` /api/users/:id/following \
 `Host`: expath.herokuapp.com
