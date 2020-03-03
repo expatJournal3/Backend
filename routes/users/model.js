@@ -5,6 +5,8 @@ module.exports = {
     find,
     findBy,
     findById,
+    findPaths,
+    addPath,
     deleteUser
 };
 
@@ -26,8 +28,21 @@ function findById(id) {
         .first();
 }
 
+function findPaths(id) {
+    return db('paths')
+        .join('users', 'users.id', 'paths.user_id')
+        .select('paths.*')
+        .where('user_id', id);
+    }
+    
+function addPath(path) {
+    return db('paths')
+    .join('users', 'users.id', 'paths.user_id')
+    .insert(path, 'id');
+}
+    
 function deleteUser(id) {
     return db('users')
-          .where({ id })
-          .del();
+        .where({ id })
+        .del();
 }
