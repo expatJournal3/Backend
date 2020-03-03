@@ -28,7 +28,7 @@ router.get('/:id', validateUserId, (req, res) => {
 
 router.get('/:id/paths', validateUserId, (req, res) => {
     const { id } = req.params;
-  
+    
     Users.findPaths(id)
     .then(paths => {
       if (paths.length) {
@@ -41,6 +41,23 @@ router.get('/:id/paths', validateUserId, (req, res) => {
       console.log(err);
       res.status(500).json({ message: 'Failed to get the paths' });
     });
+  });
+  
+router.get('/:id/followers', validateUserId, (req, res) => {
+    const { id } = req.params;
+    
+    Users.findFollowers(id)
+    .then(followers => {
+        if (followers.length) {
+          res.json(followers);
+        } else {
+          res.status(404).json({ message: 'Could not find followers for given user' })
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({ message: 'Failed to get the followers' });
+      });
 });
 
 router.post('/:id/paths', validateUserId, (req, res) => {
@@ -60,6 +77,30 @@ router.post('/:id/paths', validateUserId, (req, res) => {
   });
 });
 
+router.post('/:id/followers', validateUserId, (req, res) => {
+  const follower = req.body;
+  const { id } = req.params; 
+  follower.user_id = Number(id);
+  console.log('follower', follower);
+  
+  Users.findById(id)
+    .then(user => {
+      console.log('user', user);
+      Users.findByEmail(follower.email)
+        .then(returnedFollower => {
+          console.log('follower found:', follower);
+          Users.addFollower(follower)
+          .then(added => {
+
+            res.status(201).json(added);
+          })
+          .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
+});
+
 router.delete('/:id', validateUserId, (req, res) => {
     const id = req.params.id;
 
@@ -69,7 +110,7 @@ router.delete('/:id', validateUserId, (req, res) => {
       })
       .catch(error => {
         console.log(error);
-        res.status(500).json({ error: "failed to remove the student" });
+        res.status(500).json({ error: "failed to remove the user" });
       });
 });
 
