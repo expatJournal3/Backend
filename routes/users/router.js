@@ -13,6 +13,53 @@ router.get('/', (req, res) => {
         })
 });
 
+router.get('/:id', validateUserId, (req, res) => {
+  const { id } = req.params;
+
+  Users.findById(id)
+  .then(user => {
+      res.json(user);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({ message: 'Failed to get user' });
+  });
+});
+
+router.get('/:id/paths', validateUserId, (req, res) => {
+    const { id } = req.params;
+  
+    Users.findPaths(id)
+    .then(paths => {
+      if (paths.length) {
+        res.json(paths);
+      } else {
+        res.status(404).json({ message: 'Could not find paths for given user' })
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ message: 'Failed to get the paths' });
+    });
+});
+
+router.post('/:id/paths', validateUserId, (req, res) => {
+  const pathData = req.body;
+  const { id } = req.params; 
+  pathData.user_id = id;
+  
+  Users.findById(id)
+  .then(user => {
+      Users.addPath(pathData, id)
+      .then(path => {
+        res.status(201).json(path);
+      })
+  })
+  .catch (err => {
+    res.status(500).json({ message: 'Failed to create new path' });
+  });
+});
+
 router.delete('/:id', validateUserId, (req, res) => {
     const id = req.params.id;
 
