@@ -101,7 +101,7 @@ Retrieve your personal user posts after logging in:
 
 ## Update Post 
 - Update an existing post for your personal blog 
->`POST` /api/users/:id/paths \
+>`POST` /api/users/:id/paths/:pathid \
 `HOST`: expath.herokuapp.com
 
  ```
@@ -115,11 +115,11 @@ Retrieve your personal user posts after logging in:
 
 ## Delete a POST
 - Delete a current post on the profile page, your personal blogs(text and optional image)
-> `DELETE` /:id/paths/:pathid \
+> `DELETE` /api/users/:id/paths/:pathid \
 `HOST`: expath.herokuapp.com
 
 ## GET **all** Posts 
-- Retrieve all posts from every user
+- Retrieve all posts from **_every_** user
 >`GET` /api/paths \
 `HOST`: expath.herokuapp.com
 
