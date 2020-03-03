@@ -5,6 +5,7 @@ module.exports = {
     find,
     findBy,
     findById,
+    updatePath,
     deletePath
 };
 
@@ -24,6 +25,12 @@ function findById(id) {
     return db('paths')
         .where({ id })
         .first();
+}
+
+function updatePath(changes, id) {
+    return db('paths')
+      .where({ id })
+      .update(changes);
 }
 
 function deletePath(id) {

@@ -78,6 +78,46 @@ Login with the email and password you used to register:
 }
 ```
 
+## GET User posts/paths 
+ - In the profile page, your personal blogs(text and optional image)
+> `GET` /api/users/:id/paths \
+`HOST`: expath.herokuapp.com
+
+Retrieve your personal user posts after logging in:
+
+## POST (Create) New User POST
+  - Create a new post for your personal blog 
+>`POST` /api/users/:id/paths \
+`HOST`: expath.herokuapp.com
+
+ ```
+{ 
+  "title": "EVERYONE SAYS I'M RUNNING AWAY",
+  "body": "My dad always asks what I'm running away from with my travels. A few weeks ago, a commenter told me to stop running away and to start living life. ....",
+  "imgUrl": "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjcxMzN9&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80",
+  "timestamp": "Tue Mar 3 2020"
+}
+```
+
+## Update Post 
+- Update an existing post for your personal blog 
+>`POST` /api/users/:id/paths \
+`HOST`: expath.herokuapp.com
+
+ ```
+{ 
+  "title": "EVERYONE SAYS I'M RUNNING AWAY",
+  "body": "My dad always asks what I'm running away from with my travels. A few weeks ago, a commenter told me to stop running away and to start living life. ....",
+  "imgUrl": "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjcxMzN9&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80",
+  "timestamp": "Tue Mar 3 2020"
+}
+```
+
+## Delete a POST
+- Delete a current post on the profile page, your personal blogs(text and optional image)
+> `DELETE` /:id/paths/:pathid \
+`HOST`: expath.herokuapp.com
+
 ## Add a follower
 > `POST` /api/users/:id/followers \
 `Host`: expath.herokuapp.com

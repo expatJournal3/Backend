@@ -1,4 +1,5 @@
 const Users = require('./model.js');
+const Paths = require('../paths/model.js');
 const router = require('express').Router();
 
 router.get('/', (req, res) => {
@@ -114,6 +115,61 @@ router.delete('/:id', validateUserId, (req, res) => {
       });
 });
 
+router.delete('/:id/paths/:pathid', validateUserId, (req,res) => {
+  const id = req.params.id;
+  const pathId = req.params.pathid;
+  console.log('id', id, 'pathId', pathId);
+  
+  Users.findPaths(id)
+  .then(paths => {
+    if (paths.length) {
+      Paths.deletePath(pathId)
+        .then(count => {
+          res.status(200).json(count);
+        })
+        .catch(error => {
+          console.log(error);
+          res.status(500).json({ error: "failed to delete the user's post" });
+        });
+    } else {
+      res.status(404).json({ message: 'Could not find paths for given user' })
+    }
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({ message: 'Failed to get the paths' });
+  });
+});
+
+router.put('/:id/paths/:pathid', validateUserId, (req,res) => {
+  const id = req.params.id;
+  const pathId = req.params.pathid;
+  const changes = req.body;
+  console.log('changes', changes);
+  console.log('id', id, 'pathId', pathId);
+  
+  Users.findPaths(id)
+  .then(paths => {
+    if (paths.length) {
+      Paths.updatePath(changes, pathId)
+        .then(updated => {
+          console.log('updated', updated);
+          
+          res.status(200).json(changes);
+        })
+        .catch(error => {
+          console.log(error);
+          res.status(500).json({ error: "failed to update the user's post" });
+        });
+    } else {
+      res.status(404).json({ message: 'Could not find paths for given user post' })
+    }
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({ message: 'Failed to get the paths' });
+  });
+});
 //custom middleware
 
 function validateUserId(req, res, next) {

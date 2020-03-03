@@ -10,6 +10,7 @@ module.exports = {
     findFollowers,
     addPath,
     addFollower,
+    deletePath,
     deleteUser
 };
 
@@ -62,6 +63,12 @@ function addFollower(follower) {
     return db('followers')
     .join('users', 'users.id', 'followers.user_id')
     .insert(follower, 'id');
+}
+
+function deletePath(pathId) {
+    return db('paths')
+      .where({ pathId })
+      .del();
 }
     
 function deleteUser(id) {
