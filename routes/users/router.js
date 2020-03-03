@@ -13,6 +13,23 @@ router.get('/', (req, res) => {
         })
 });
 
+router.get('/:id', validateUserId, (req, res) => {
+  const { id } = req.params;
+
+  Users.findById(id)
+  .then(user => {
+      res.json(user);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({ message: 'Failed to get user' });
+  });
+});
+
+router.post('/:id/paths', validateUserId, (req, res) => {
+
+});
+
 router.delete('/:id', validateUserId, (req, res) => {
     const id = req.params.id;
 
