@@ -77,3 +77,17 @@ Login with the email and password you used to register:
     password: "password"
 }
 ```
+
+## Add a follower
+> `POST` /api/users/:id/followers \
+`Host`: expath.herokuapp.com
+
+```
+{
+    "email": "devtest@email.com"
+}
+```
+
+## GET User Followers
+> `GET` /api/users/:id/followers \
+`Host`: expath.herokuapp.com
