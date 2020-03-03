@@ -115,7 +115,7 @@ Retrieve your personal user posts after logging in:
 
 ## Delete a POST
 - Delete a current post on the profile page, your personal blogs(text and optional image)
-> `DELETE` /api/users/:id/paths \
+> `DELETE` /:id/paths/:pathid \
 `HOST`: expath.herokuapp.com
 
 ## Add a follower

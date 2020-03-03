@@ -11,7 +11,6 @@ module.exports = {
     addPath,
     addFollower,
     deletePath,
-    updatePath,
     deleteUser
 };
 
@@ -64,12 +63,6 @@ function addFollower(follower) {
     return db('followers')
     .join('users', 'users.id', 'followers.user_id')
     .insert(follower, 'id');
-}
-
-function updatePath(changes, id) {
-    return db('paths')
-      .where({ id })
-      .update(changes);
 }
 
 function deletePath(pathId) {

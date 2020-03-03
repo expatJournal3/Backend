@@ -141,8 +141,35 @@ router.delete('/:id/paths/:pathid', validateUserId, (req,res) => {
   });
 });
 
-
-
+router.put('/:id/paths/:pathid', validateUserId, (req,res) => {
+  const id = req.params.id;
+  const pathId = req.params.pathid;
+  const changes = req.body;
+  console.log('changes', changes);
+  console.log('id', id, 'pathId', pathId);
+  
+  Users.findPaths(id)
+  .then(paths => {
+    if (paths.length) {
+      Paths.updatePath(changes, pathId)
+        .then(updated => {
+          console.log('updated', updated);
+          
+          res.status(200).json(changes);
+        })
+        .catch(error => {
+          console.log(error);
+          res.status(500).json({ error: "failed to update the user's post" });
+        });
+    } else {
+      res.status(404).json({ message: 'Could not find paths for given user post' })
+    }
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({ message: 'Failed to get the paths' });
+  });
+});
 //custom middleware
 
 function validateUserId(req, res, next) {
