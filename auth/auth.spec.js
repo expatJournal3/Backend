@@ -16,7 +16,7 @@ describe('register route', () => {
         it('should add the created user', function(done) {
             request(server)
             .post('/api/auth/register')
-            .send({email: 'tester@email.com', password: 'pass'})
+            .send({email: 'tester1@email.com', password: 'pass'})
             .expect(200)
             .end(function(err, res) {
                 if (err) return done(err);

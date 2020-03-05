@@ -61,19 +61,22 @@ router.get('/:id/following', validateUserId, (req, res) => {
       });
 });
 
-router.post('/:id/paths', validateUserId, (req, res) => {
+router.post('/:id/paths', validateUserId, validateInput, (req, res) => {
   const pathData = req.body;
   const { id } = req.params; 
   pathData.user_id = id;
+  console.log(pathData);
   
   Users.findById(id)
   .then(user => {
       Users.addPath(pathData, id)
       .then(path => {
+        console.log('path', path);
         res.status(201).json(path);
       })
   })
   .catch (err => {
+    console.log('err', err);
     res.status(500).json({ message: 'Failed to create new path' });
   });
 });
@@ -184,6 +187,16 @@ function validateUserId(req, res, next) {
       console.log(err);
       res.status(500).json({ error: `Couldn't retrieve a user with id of ${id}` });
     });
+}
+
+function validateInput(req, res, next) {
+  if( Object.keys(req.body).length == 0 ) {
+    res.status(400).json({ message: "missing required fields" });
+  } else if(!req.body.title) {
+    res.status(400).json({ message: "missing required title field" });
+  } else if(!req.body.body) {
+    res.status(400).json({ message: "missing required body field" });
+  } else next();
 }
 
 module.exports = router;

@@ -2,13 +2,13 @@
 For BACKEND devs
 
 ## Introduction
-What does your API do?
+Expat Journal allows the users to connect and engage among other members.
 
 ## Overview
-Things that the developers should know about
+The App and endpoints have been set up, tested and all are listed below. The user should have full access to create their profile, create/edit/delete their story. And the ability to view all posts from every member.
 
 ## Authentication
-What is the preferred way of using the API?
+Register and login produce a token that has to be set in the header to acces every other endpoint. 
 
 ## Error Codes
 What errors and status codes can a user expect?
@@ -17,25 +17,18 @@ What errors and status codes can a user expect?
   * **Code:** 404 NOT FOUND <br />
     **Content:** `{ error : "User doesn't exist" }`
 
-  OR
-
   * **Code:** 401 UNAUTHORIZED <br />
     **Content:** `{error: "Invalid credentials."}`
 
-  OR
-
   * **Code:** 400 BAD REQUEST <br />
     **Content:** `{message: "missing user data"}`
-
-  OR
-
-  * **Code:** 400 BAD REQUEST <br />
     **Content:** `{message: "missing required email field"}`
-
-  OR
-
-  * **Code:** 400 BAD REQUEST <br />
     **Content:** `{message: "missing required password field"}`
+
+  * **Code:** 400 BAD REQUEST - users posts router <br />
+    **Content:** `({ message: "missing required fields" })`
+    **Content:** `({ message: "missing required title field" })`
+    **Content:**  `({ message: "missing required body field" })`
 
 ## Rate limit
 There isn't any limit to the number of requests a user can send.
