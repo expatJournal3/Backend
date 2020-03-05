@@ -3,7 +3,6 @@ const db = require('../../database/connection');
 const Users = require('./model.js');
 const Paths = require('../paths/model.js');
 
-// require("dotenv").config();
 const request = require('supertest');
 const server = require('../api/server.js');
 
@@ -97,7 +96,7 @@ describe('paths router', () => {
         })
     });
 
-/*    describe('GET /api/paths', function()  {
+    describe('GET /api/paths', function()  {
         let auth = {};
         beforeAll((done) => {
 
@@ -124,12 +123,12 @@ describe('paths router', () => {
         });
         
         it('should respond with JSON array', function() {
-            console.log('auth!!!!!!!!!!!!', auth);
+            console.log('auth', auth);
             return request(server)
             .get('/api/paths')
             .set('Authorization', auth.token)
             .expect(200);
         });
-    })*/
+    })
 })
 

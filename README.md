@@ -21,13 +21,13 @@ What errors and status codes can a user expect?
     **Content:** `{error: "Invalid credentials."}`
 
   * **Code:** 400 BAD REQUEST <br />
-    **Content:** `{message: "missing user data"}`
-    **Content:** `{message: "missing required email field"}`
+    **Content:** `{message: "missing user data"}` \
+    **Content:** `{message: "missing required email field"}` \
     **Content:** `{message: "missing required password field"}`
 
   * **Code:** 400 BAD REQUEST - users posts router <br />
-    **Content:** `({ message: "missing required fields" })`
-    **Content:** `({ message: "missing required title field" })`
+    **Content:** `({ message: "missing required fields" })` \
+    **Content:** `({ message: "missing required title field" })` \
     **Content:**  `({ message: "missing required body field" })`
 
 ## Rate limit
