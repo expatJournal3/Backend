@@ -17,25 +17,18 @@ What errors and status codes can a user expect?
   * **Code:** 404 NOT FOUND <br />
     **Content:** `{ error : "User doesn't exist" }`
 
-  OR
-
   * **Code:** 401 UNAUTHORIZED <br />
     **Content:** `{error: "Invalid credentials."}`
 
-  OR
-
   * **Code:** 400 BAD REQUEST <br />
     **Content:** `{message: "missing user data"}`
-
-  OR
-
-  * **Code:** 400 BAD REQUEST <br />
     **Content:** `{message: "missing required email field"}`
-
-  OR
-
-  * **Code:** 400 BAD REQUEST <br />
     **Content:** `{message: "missing required password field"}`
+
+  * **Code:** 400 BAD REQUEST - users posts router <br />
+    **Content:** `({ message: "missing required fields" })`
+    **Content:** `({ message: "missing required title field" })`
+    **Content:**  `({ message: "missing required body field" })`
 
 ## Rate limit
 There isn't any limit to the number of requests a user can send.

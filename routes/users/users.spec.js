@@ -1,50 +1,11 @@
-/*
 
-describe('Create new post /api/users/:id/paths', () => { 
-
-    it('user can create a post', function () {
-        return request(server)
-            .post(`/api/users/1/paths`)
-            .send({email: "test@email.com", password: "pass"})
-            .set('Authorization', token)
-            .send({
-                title: 'New Testing Post',
-                body: 'test'
-            })
-            .expect(201)
-            .then(res => {
-                console.log(res)
-                expect(res.type).toMatch(/json/)
-                expect(res.type).toHaveProperty(title)
-                expect(res.type).toHaveProperty(body)
-            });
-    });
-    /////////////////////////////
-    const post = {
-        title: "Hump Day", 
-        body: "Wednesday" 
-    } 
-    log('post', post);
-    function loginUser(auth) {
-        log('auth', auth);
-        it('should create new post', function(done) {
-            request(server)
-            .post('/api/users/1/paths')
-            .send(post)
-            .expect(201)
-            .end(onResponse);
-                function onResponse(err, res) {
-                    auth.token = res.body.token;
-                    return done();
-                }
-        })
-    };
-});
-
-*/
 const db = require('../../database/connection');
 const Users = require('./model.js');
 const Paths = require('../paths/model.js');
+
+// require("dotenv").config();
+const request = require('supertest');
+const server = require('../api/server.js');
 
 beforeEach( async () => {
     await db('paths').truncate();
@@ -60,23 +21,68 @@ describe('paths router', () => {
 
     describe('insert()', function () {
         it('should add the created path', async () => {
+            console.log('here');
+            
             await Users.addPath({
                 body: "Wednesday",
                 title: "Hump Day",
                 user_id: 1
             });
-
+            
             const paths = await db('paths');
             expect(paths).toHaveLength(1);
         })
     })
+    
+    describe('update()', function () {
+        const changes = {
+            body: "Wednesday!",
+            title: "Hump Day"
+        };
+        const pathId = 1;
+        it('should update the users path', async () => {
+            console.log(changes, pathId);
+            const res = await Paths.updatePath(changes, pathId)
+            .then(updated => {
+                console.log('updated', updated);
+                expect(200);
+            })
+        });
+    });
 
-    // describe('update()', function () {
-    //     it('should updated the user\'s path', async () => {
-    //         await Paths.updatePath({
+    describe('GET /api/paths', function()  {
+        let auth = {};
+        beforeAll((done) => {
 
-    //         })
-    //     })
-    // })
-});
+            request(server)
+            .post('/api/auth/register')
+            .send({email: "testingg@email.com", password: "password"})
+            .expect(200)
+            .end(onResponse);
+                
+            function onResponse(err, res) {
+                console.log(res.body.token);
+                
+                auth.token = res.body.token;
+                return done();
+            }
+        })
+
+        it('should require authorization', function() {
+            
+            return request(server)
+            .get('/api/paths')
+            .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo4LCJ1c2VybmFt')
+            .expect(401);
+        });
+        
+        it('should respond with JSON array', function() {
+            console.log('auth!!!!!!!!!!!!', auth);
+            return request(server)
+            .get('/api/paths')
+            .set('Authorization', auth.token)
+            .expect(200);
+        });
+    })
+})
 
